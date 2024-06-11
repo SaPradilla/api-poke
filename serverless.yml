@@ -1,0 +1,51 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: sapradi
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: poke-aws
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: poke-aws
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:654654553644:table/pokeTable
+
+functions:
+  createPokemon:
+      handler: src/addPokemon.addPokemon
+      events:
+        - httpApi:
+            path: /pokemons
+            method: post
+  getPokemons:
+        handler: src/getPokemons.getPokemons
+        events:
+          - httpApi:
+              path: /pokemons
+              method: get
+  getPokemon:
+        handler: src/getPokemon.getPokemon
+        events:
+          - httpApi:
+              path: /pokemons/{id}
+              method: get
+
+
+resources:
+  Resources:
+    pokeTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: pokeTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
