@@ -22,6 +22,7 @@ functions:
         - httpApi:
             path: /pokemons
             method: post
+            
   getPokemons:
         handler: src/getPokemons.getPokemons
         events:

@@ -20,6 +20,10 @@ const getPokemon = async(event)=>{
 
         return{
             status:200,
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:4200',
+                'Access-Control-Allow-Credentials': true,
+            },
             body: pokemon
         };
 
