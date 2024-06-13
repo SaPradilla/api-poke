@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: sapradi
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: poke-aws
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: poke-aws
 
 provider:
@@ -17,25 +14,32 @@ provider:
 
 functions:
   createPokemon:
-      handler: src/addPokemon.addPokemon
-      events:
-        - httpApi:
-            path: /pokemons
-            method: post
+    handler: src/addPokemon.addPokemon
+    events:
+      - httpApi:
+          path: /pokemons
+          method: post
             
   getPokemons:
-        handler: src/getPokemons.getPokemons
-        events:
-          - httpApi:
-              path: /pokemons
-              method: get
-  getPokemon:
-        handler: src/getPokemon.getPokemon
-        events:
-          - httpApi:
-              path: /pokemons/{id}
-              method: get
+    handler: src/getPokemons.getPokemons
+    events:
+      - httpApi:
+          path: /pokemons
+          method: get
 
+  getPokemon:
+    handler: src/getPokemon.getPokemon
+    events:
+      - httpApi:
+          path: /pokemons/{id}
+          method: get
+
+  searchPokemons:
+    handler: src/searchPokemons.searchPokemons
+    events:
+      - httpApi:
+          path: /pokemons/search
+          method: get
 
 resources:
   Resources:
